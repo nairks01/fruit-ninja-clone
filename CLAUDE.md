@@ -37,6 +37,8 @@ The game is built as a single-page canvas-based application using an entity-comp
 
 **Tweaking difficulty**: Adjust `spawnRate` (starts at 60, decreases by 2 per frame) and `maxMisses` (currently 3) to change pacing.
 
+**Fruit spawn mechanics**: Fruits are launched with angles constrained to 60-120° (more vertical trajectories) and horizontal velocity capped at ±4 units/frame to keep them on-screen and slashable. Initial speed is 14-18 units/frame. Adjust `spawnFruit()` to change launch angles (`Math.PI / 3` to `2π/3`), speed range, or horizontal velocity cap (`vx` clamping).
+
 **Physics tuning**: Gravity (`vy += 0.3` in Fruit.update), friction, and fruit launch angles are in `spawnFruit()` and the Fruit class.
 
 **Visual effects**: Particles are configured in `sliceFruit()` and `createExplosion()` with angle, speed, and duration. Combo feedback animations are in `style.css` and triggered by `showComboDisplay()`.
