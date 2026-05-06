@@ -45,9 +45,10 @@ The game is built as a single-page canvas-based application using an entity-comp
 
 ## Git Workflow
 
-Three iterations have been completed:
+Four iterations have been completed:
 1. **Initial commit**: Core gameplay mechanics (spawning, slicing, scoring)
 2. **Second commit**: 3-life system with combo reset on missed fruits
-3. **Final commit**: Combo animations, visual feedback, special effects
+3. **Third commit**: Combo animations, visual feedback, special effects
+4. **Fourth commit**: Fixed fruit spawn mechanics (constrained angles, horizontal velocity caps)
 
 Future changes should follow this pattern: implement feature, test in browser, commit with a clear message describing the change.
