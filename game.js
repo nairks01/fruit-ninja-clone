@@ -280,9 +280,9 @@ function spawnFruit() {
 
     const x = Math.random() * (canvas.width - 60) + 30;
     const y = canvas.height;
-    const angle = Math.random() * Math.PI;
-    const speed = 8 + Math.random() * 4;
-    const vx = Math.cos(angle) * speed - 2;
+    const angle = Math.PI / 4 + Math.random() * (Math.PI / 2);
+    const speed = 12 + Math.random() * 6;
+    const vx = Math.cos(angle) * speed;
     const vy = -Math.sin(angle) * speed;
 
     fruits.push(new Fruit(x, y, vx, vy, type));
