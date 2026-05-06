@@ -2,6 +2,8 @@
 
 A browser-based Fruit Ninja clone with mouse-based gameplay.
 
+This project was developed using the Claude Code CLI on Cursor.
+
 ## Features
 
 - Mouse-based fruit slicing gameplay
