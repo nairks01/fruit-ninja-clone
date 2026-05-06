@@ -8,6 +8,8 @@ let score = 0;
 let combo = 0;
 let gameRunning = true;
 let bombs = 0;
+let misses = 0;
+let maxMisses = 3;
 
 const fruits = [];
 const particles = [];
@@ -212,6 +214,7 @@ function sliceFruit(fruit, x, y) {
     combo++;
 
     if (fruit.type === bombType) {
+        createExplosion(fruit.x, fruit.y, '#ff4444');
         gameOver();
         return;
     }
@@ -220,16 +223,28 @@ function sliceFruit(fruit, x, y) {
     document.getElementById('score').textContent = score;
     document.getElementById('combo').textContent = combo;
 
-    for (let i = 0; i < 8; i++) {
-        const angle = (i / 8) * Math.PI * 2;
-        const vx = Math.cos(angle) * 5;
-        const vy = Math.sin(angle) * 5 - 3;
-        particles.push(new Particle(fruit.x, fruit.y, vx, vy, fruit.type.color, 30));
+    for (let i = 0; i < 12; i++) {
+        const angle = (i / 12) * Math.PI * 2;
+        const vx = Math.cos(angle) * 6;
+        const vy = Math.sin(angle) * 6 - 3;
+        particles.push(new Particle(fruit.x, fruit.y, vx, vy, fruit.type.color, 40));
     }
 
     setTimeout(() => {
-        fruits.splice(fruits.indexOf(fruit), 1);
+        const index = fruits.indexOf(fruit);
+        if (index > -1) {
+            fruits.splice(index, 1);
+        }
     }, 100);
+}
+
+function createExplosion(x, y, color) {
+    for (let i = 0; i < 20; i++) {
+        const angle = (i / 20) * Math.PI * 2;
+        const vx = Math.cos(angle) * 8;
+        const vy = Math.sin(angle) * 8 - 4;
+        particles.push(new Particle(x, y, vx, vy, color, 50));
+    }
 }
 
 function spawnFruit() {
@@ -260,7 +275,14 @@ function update() {
     for (let i = fruits.length - 1; i >= 0; i--) {
         if (!fruits[i].update()) {
             if (!fruits[i].sliced) {
-                gameOver();
+                misses++;
+                combo = 0;
+                document.getElementById('combo').textContent = '0';
+                if (misses >= maxMisses) {
+                    gameOver();
+                } else {
+                    document.getElementById('lives').textContent = maxMisses - misses;
+                }
             }
             fruits.splice(i, 1);
         }
@@ -304,6 +326,7 @@ function gameOver() {
 function restartGame() {
     score = 0;
     combo = 0;
+    misses = 0;
     gameRunning = true;
     fruits.length = 0;
     particles.length = 0;
@@ -313,6 +336,7 @@ function restartGame() {
 
     document.getElementById('score').textContent = '0';
     document.getElementById('combo').textContent = '0';
+    document.getElementById('lives').textContent = '3';
     document.getElementById('gameOverScreen').classList.remove('show');
 }
 
