@@ -26,8 +26,32 @@ body {
     padding: 15px 20px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     font-size: 20px;
     font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.score, .combo, .lives {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.combo {
+    animation: pulse-combo 0.6s ease-in-out;
+}
+
+@keyframes pulse-combo {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 .score, .combo {
@@ -96,4 +120,36 @@ body {
     position: relative;
     width: 800px;
     height: 600px;
+}
+
+.combo-display {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 48px;
+    font-weight: bold;
+    color: #FFD700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 10px rgba(255, 215, 0, 0.5);
+    pointer-events: none;
+    opacity: 0;
+    animation: combo-pop 0.6s ease-out forwards;
+}
+
+.combo-display.show {
+    animation: combo-pop 0.6s ease-out forwards;
+}
+
+@keyframes combo-pop {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -120%) scale(1);
+    }
 }

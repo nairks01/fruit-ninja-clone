@@ -223,11 +223,22 @@ function sliceFruit(fruit, x, y) {
     document.getElementById('score').textContent = score;
     document.getElementById('combo').textContent = combo;
 
+    showComboDisplay(combo, x, y);
+
     for (let i = 0; i < 12; i++) {
         const angle = (i / 12) * Math.PI * 2;
         const vx = Math.cos(angle) * 6;
         const vy = Math.sin(angle) * 6 - 3;
         particles.push(new Particle(fruit.x, fruit.y, vx, vy, fruit.type.color, 40));
+    }
+
+    if (combo >= 5) {
+        for (let i = 0; i < 8; i++) {
+            const angle = Math.random() * Math.PI * 2;
+            const vx = Math.cos(angle) * 4;
+            const vy = Math.sin(angle) * 4;
+            particles.push(new Particle(x, y, vx, vy, '#FFD700', 30));
+        }
     }
 
     setTimeout(() => {
@@ -236,6 +247,22 @@ function sliceFruit(fruit, x, y) {
             fruits.splice(index, 1);
         }
     }, 100);
+}
+
+function showComboDisplay(comboCount, x, y) {
+    const display = document.getElementById('comboDisplay');
+    let text = comboCount + 'x';
+
+    if (comboCount >= 10) {
+        text = '🔥 ' + comboCount + 'x 🔥';
+    } else if (comboCount >= 5) {
+        text = '✨ ' + comboCount + 'x';
+    }
+
+    display.textContent = text;
+    display.classList.remove('show');
+    void display.offsetWidth;
+    display.classList.add('show');
 }
 
 function createExplosion(x, y, color) {
